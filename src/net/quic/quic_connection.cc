@@ -689,18 +689,18 @@ bool QuicConnection::OnStreamFrame(const QuicStreamFrame& frame) {
   if (debug_visitor_ != nullptr) {
     debug_visitor_->OnStreamFrame(frame);
   }
-  if (frame.stream_id != kCryptoStreamId &&
-      last_decrypted_packet_level_ == ENCRYPTION_NONE) {
-    QUIC_BUG << ENDPOINT
-             << "Received an unencrypted data frame: closing connection"
-             << " packet_number:" << last_header_.packet_number
-             << " stream_id:" << frame.stream_id
-             << " received_packets:" << received_packet_manager_.ack_frame();
-    CloseConnection(QUIC_UNENCRYPTED_STREAM_DATA,
-                    "Unencrypted stream data seen.",
-                    ConnectionCloseBehavior::SEND_CONNECTION_CLOSE_PACKET);
-    return false;
-  }
+  // if (frame.stream_id != kCryptoStreamId &&
+  //     last_decrypted_packet_level_ == ENCRYPTION_NONE) {
+  //   QUIC_BUG << ENDPOINT
+  //            << "Received an unencrypted data frame: closing connection"
+  //            << " packet_number:" << last_header_.packet_number
+  //            << " stream_id:" << frame.stream_id
+  //            << " received_packets:" << received_packet_manager_.ack_frame();
+  //   CloseConnection(QUIC_UNENCRYPTED_STREAM_DATA,
+  //                   "Unencrypted stream data seen.",
+  //                   ConnectionCloseBehavior::SEND_CONNECTION_CLOSE_PACKET);
+  //   return false;
+  // }
   visitor_->OnStreamFrame(frame);
   visitor_->PostProcessAfterData();
   stats_.stream_bytes_received += frame.data_length;

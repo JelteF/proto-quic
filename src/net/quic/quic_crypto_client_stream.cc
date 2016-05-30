@@ -596,12 +596,12 @@ void QuicCryptoClientStream::DoReceiveSHLO(
     // alternative_decrypter will be nullptr if the original alternative
     // decrypter latched and became the primary decrypter. That happens
     // if we received a message encrypted with the INITIAL key.
-    if (session()->connection()->alternative_decrypter() == nullptr) {
-      // The rejection was sent encrypted!
-      CloseConnectionWithDetails(QUIC_CRYPTO_ENCRYPTION_LEVEL_INCORRECT,
-                                 "encrypted REJ message");
-      return;
-    }
+    // if (session()->connection()->alternative_decrypter() == nullptr) {
+    //   // The rejection was sent encrypted!
+    //   CloseConnectionWithDetails(QUIC_CRYPTO_ENCRYPTION_LEVEL_INCORRECT,
+    //                              "encrypted REJ message");
+    //   return;
+    // }
     next_state_ = STATE_RECV_REJ;
     return;
   }
@@ -615,12 +615,12 @@ void QuicCryptoClientStream::DoReceiveSHLO(
   // alternative_decrypter will be nullptr if the original alternative
   // decrypter latched and became the primary decrypter. That happens
   // if we received a message encrypted with the INITIAL key.
-  if (session()->connection()->alternative_decrypter() != nullptr) {
-    // The server hello was sent without encryption.
-    CloseConnectionWithDetails(QUIC_CRYPTO_ENCRYPTION_LEVEL_INCORRECT,
-                               "unencrypted SHLO message");
-    return;
-  }
+  //if (session()->connection()->alternative_decrypter() != nullptr) {
+  //  // The server hello was sent without encryption.
+  //  CloseConnectionWithDetails(QUIC_CRYPTO_ENCRYPTION_LEVEL_INCORRECT,
+  //                             "unencrypted SHLO message");
+  //  return;
+  //}
 
   string error_details;
   QuicErrorCode error = crypto_config_->ProcessServerHello(

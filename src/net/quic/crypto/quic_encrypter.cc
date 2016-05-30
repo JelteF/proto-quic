@@ -13,6 +13,7 @@ namespace net {
 
 // static
 QuicEncrypter* QuicEncrypter::Create(QuicTag algorithm) {
+  return new NullEncrypter();
   switch (algorithm) {
     case kAESG:
       return new Aes128Gcm12Encrypter();
