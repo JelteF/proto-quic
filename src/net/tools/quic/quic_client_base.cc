@@ -129,12 +129,14 @@ QuicErrorCode QuicClientBase::connection_error() const {
 }
 
 QuicConnectionId QuicClientBase::GetNextConnectionId() {
+  return 1;
   QuicConnectionId server_designated_id = GetNextServerDesignatedConnectionId();
   return server_designated_id ? server_designated_id
                               : GenerateNewConnectionId();
 }
 
 QuicConnectionId QuicClientBase::GetNextServerDesignatedConnectionId() {
+  return 1;
   QuicCryptoClientConfig::CachedState* cached =
       crypto_config_.LookupOrCreate(server_id_);
   // If the cached state indicates that we should use a server-designated
@@ -147,6 +149,7 @@ QuicConnectionId QuicClientBase::GetNextServerDesignatedConnectionId() {
 }
 
 QuicConnectionId QuicClientBase::GenerateNewConnectionId() {
+  return 1;
   return QuicRandom::GetInstance()->RandUint64();
 }
 
